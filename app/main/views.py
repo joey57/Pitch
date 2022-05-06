@@ -9,17 +9,12 @@ from .forms import PitchForm, CommentForm, UpvoteForm, UpdateProfile
 # views
 @main.route('/')
 def index():
-  '''
-  view root page function that returns index page
-  '''
-  title ='Home'
-  pitch =Pitch.query.filter_by().first()
-  pickuplines = Pitch.query.filter_by(category="pickuplines")
-  interviewpitch = Pitch.query.filter_by(category = "interviewpitch")
-  promotionpitch = Pitch.query.filter_by(category = "promotionpitch")
-  productpitch = Pitch.query.filter_by(category = "productpitch")
-
-  return render_template('home.html', title=title, pitch = pitch,pickuplines=pickuplines, interviewpitch= interviewpitch, promotionpitch = promotionpitch, productpitch = productpitch)
+    pitches = Pitch.query.all()
+    job = Pitch.query.filter_by(category = 'Job').all() 
+    event = Pitch.query.filter_by(category = 'Events').all()
+    advertisement = Pitch.query.filter_by(category = 'Advertisement').all()
+    
+    return render_template('index.html', job = job,event = event, pitches = pitches,advertisement= advertisement)
 
 @main.route('/pitches/new/', methods = ['GET','POST'])
 @login_required
@@ -32,13 +27,11 @@ def new_pitch():
         owner_id = current_user
         category = form.category.data
         print(current_user._get_current_object().id)
-        new_pitch = Pitch(owner_id=current_user._get_current_object().id, title = title,description=description,category=category)
+        new_pitch = Pitch(owner_id =current_user._get_current_object().id, title = title,description=description,category=category)
         db.session.add(new_pitch)
         db.session.commit()
-        
-        
         return redirect(url_for('main.index'))
-    return render_template('pitches.html',form=form) 
+    return render_template('pitches.html',form=form)
 
 @main.route('/user/<uname>')
 def profile(uname):

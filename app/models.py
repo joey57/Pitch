@@ -30,8 +30,16 @@ class User(UserMixin,db.Model):
       self.pass_secure = generate_password_hash(password) 
 
     def verify_password(self,password):
-      return check_password_hash(self.pass_secure,password)   
+      return check_password_hash(self.pass_secure,password) 
 
+    def save_u(self):
+      db.session.add(self)
+      db.session.commit() 
+
+    def delete(self):
+      db.session.delete(self)
+      db.session.commit()
+           
     def __repr__(self):
         return f'User {self.username}'
 
@@ -39,7 +47,7 @@ class Pitch(db.Model):
   __tablename__ = 'pitches'
 
   id = db.Column(db.Integer,primary_key = True)
-  owner_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable =False)
+  user_id= db.Column(db.Integer, db.ForeignKey('users.id'))
   description = db.Column(db.String(255),index = True)
   title = db.Column(db.String())
   category = db.Column(db.String(255),nullable=False)
@@ -47,6 +55,9 @@ class Pitch(db.Model):
   upvotes = db.relationship('Upvote', backref = 'pitch', lazy = 'dynamic')
   downvotes = db.relationship('Downvote', backref = 'pitch', lazy = 'dynamic')
 
+  def save_p(self):
+    db.session.add(self)
+    db.session.commit()
 
   @classmethod
   def get_pitches(cls, id):
@@ -63,6 +74,15 @@ class Comment(db.Model):
    pitch_id = db.Column(db.Integer, db.ForeignKey('pitches.id'), nullable =False)
    user_id = db.Column(db.Integer, db.ForeignKey('users.id'),nullable = False)
    description = db.Column(db.String(255))
+
+   def save_c(self):
+        db.session.add(self)
+        db.session.commit()
+   @classmethod
+   def get_comments(cls,pitch_id):
+        comments = Comment.query.filter_by(pitch_id=pitch_id).all()
+
+        return comments    
 
    def __repr__(self):
      return f'Comment : id: {self.id} comment: {self.description}'
