@@ -54,10 +54,14 @@ class Pitch(db.Model):
   comments = db.relationship('Comment',backref='pitch',lazy='dynamic')
   upvotes = db.relationship('Upvote', backref = 'pitch', lazy = 'dynamic')
   downvotes = db.relationship('Downvote', backref = 'pitch', lazy = 'dynamic')
+   
 
   def save_p(self):
     db.session.add(self)
     db.session.commit()
+
+  def user(self):
+    print('user')  
 
   @classmethod
   def get_pitches(cls, id):
@@ -109,7 +113,7 @@ class Upvote(db.Model):
     return upvote
   @classmethod
   def get_all_upvotes(cls, pitch_id):
-    upvotes = Upvote.Query.order_by('id').all()
+    upvotes = Upvote.query.order_by('id').all()
     return upvotes
           
   def __repr__(self):
