@@ -13,7 +13,7 @@ def index():
   view root page function that returns index page
   '''
   title ='Home'
-  pitch =Pitch.query.filter_by().all()
+  pitch =Pitch.query.filter_by().first()
   pickuplines = Pitch.query.filter_by(category="pickuplines")
   interviewpitch = Pitch.query.filter_by(category = "interviewpitch")
   promotionpitch = Pitch.query.filter_by(category = "promotionpitch")
