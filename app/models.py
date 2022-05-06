@@ -34,8 +34,27 @@ class Pitch(db.Model):
   category = db.Column(db.String(255),nullable=False)
 
 
+  @classmethod
+  def get_pitches(cls, id):
+    pitches = Pitch.query.order_by(pitch_id=id).desc().all()
+    return pitches
+
   def __repr__(self):
     return f'Pitch{self.description}'
+
+class Comment(db.Model):
+   __tablename__ = 'comments'
+
+   id = db.Column(db.Integer,primary_key = True)
+   pitch_id = db.Column(db.Integer, db.ForeignKey('pitches.id'), nullable =False)
+   user_id = db.Column(db.Integer, db.ForeginKey('users.id'),nullable = False)
+   description = db.Column(db.text)
+
+   def __repr__(self):
+     return f'Comment : id: {self.id} comment: {self.description}'
+     
+   
+
 
 
 
