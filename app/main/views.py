@@ -4,6 +4,7 @@ from flask_login import login_required, current_user
 from ..models import Pitch, User, Comment, Upvote, Downvote
 from flask.views import View, MethodView
 from .. import db
+from .forms import PitchForm, CommentForm, UpvoteForm
 
 # views
 @main.route('/')
@@ -19,4 +20,23 @@ def index():
   productpitch = Pitch.query.filter_by(category = "productpitch")
 
   return render_template('home.html', title=title, pitch = pitch,pickuplines=pickuplines, interviewpitch= interviewpitch, promotionpitch = promotionpitch, productpitch = productpitch)
+
+@main.route('/pitches/new/', methods = ['GET','POST'])
+@login_required
+def new_pitch():
+    form = PitchForm()
+    my_upvotes = Upvote.query.filter_by(pitch_id = Pitch.id)
+    if form.validate_on_submit():
+        description = form.description.data
+        title = form.title.data
+        owner_id = current_user
+        category = form.category.data
+        print(current_user._get_current_object().id)
+        new_pitch = Pitch(owner_id=current_user._get_current_object().id, title = title,description=description,category=category)
+        db.session.add(new_pitch)
+        db.session.commit()
+        
+        
+        return redirect(url_for('main.index'))
+    return render_template('pitches.html',form=form)  
   
