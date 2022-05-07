@@ -14,8 +14,8 @@
 				
 				<a href="{{url_for('main.new_comment',pitch_id = category.id)}}" class="btn btn-info"> Add a comment</a>
 				
-				<!-- <a href="{{url_for('main.upvote',pitch_id = category.id)}}" class= "btn btn-primary btn-sm"><i></i>Upvote <span>{{category.upvotes.count()}}</span></a>
-				<a href="{{url_for('main.downvote',pitch_id = category.id)}}" class= "btn btn-danger btn-sm"><i class="far fa-thumbs-up"></i>Downvote <span>{{category.downvotes.count()}}</span></a> -->
+				<a href="{{url_for('main.upvote',pitch_id = category.id)}}" class= "btn btn-primary btn-sm"><i></i>Upvote <span>{{category.upvotes.count()}}</span></a>
+				<a href="{{url_for('main.downvote',pitch_id = category.id)}}" class= "btn btn-danger btn-sm"><i class="far fa-thumbs-up"></i>Downvote <span>{{category.downvotes.count()}}</span></a>
 
 			</div>
 		</div>
@@ -29,9 +29,8 @@
 
 
 
-<!-- {% macro displayComment(comments) %}
+{% macro displayComment(comments) %}
 <ul>
-
 			{% if comments %}
 			{% for comment in comments %}
 				<div class="row text-center">
@@ -46,7 +45,4 @@
 
 	</ul>
 	
-			
-
-
-{% endmacro %} -->
+{% endmacro %} 

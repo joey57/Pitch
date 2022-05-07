@@ -6,6 +6,10 @@ class Config:
   SECRET_KEY='123456'
   SQLALCHEMY_TRACK_MODIFICATIONS = False
 
+  # simple mde configurations
+  SIMPLEMDE_JS_IIFE = True
+  SIMPLEMDE_USE_CDN = True
+
 class ProdConfig(Config):
   '''
   '''
