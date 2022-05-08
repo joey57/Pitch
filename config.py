@@ -3,7 +3,7 @@ class Config:
   '''
   '''
   SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:whalien52@localhost/pitch'
-  SECRET_KEY='123456'
+  SECRET_KEY=os.environ.get('SECRET_KEY')
   SQLALCHEMY_TRACK_MODIFICATIONS = False
 
   # simple mde configurations
@@ -13,15 +13,22 @@ class Config:
 class ProdConfig(Config):
   '''
   '''
+  SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
+
+class TestConfig(Config):
+  '''
+  '''
   pass
 
 class DevConfig(Config):
   '''
 
   '''
-  DEBUG =True
+  SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:whalien52@localhost/pitch'
+DEBUG =True
 
 config_options = {
   'development':DevConfig,
-  'production':ProdConfig
+  'production':ProdConfig,
+  'test':TestConfig
 }    
