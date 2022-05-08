@@ -12,9 +12,19 @@ Pitch is a web application that allows users to login in and register to the web
 
 ## Technologies used
 * python 3.10.4
-*  HTML 
+* Flask
+* HTML 
 * Bootstrap
 * Heroku deployment
+
+## BDD
+| Behaviour | Input | Output |
+| :---------------- | :---------------: | ------------------: |
+| Load the page | **On page load** | Get all posts, Select between signup or login|
+| Select SignUp| **Email**,**Username**,**Password** | Go to login|
+| Select Login | **Username** and **password** |Go to page with app pitches based on categories and commenting section|
+| Select comment button | **Comment** | Form that you input your comment|
+
 
 ## Known Bugs
 No known bugs found
@@ -22,8 +32,7 @@ No known bugs found
 ## setup and Installation
 *  Install python 
 *  clone/download the repo
-*  Edit the start.sh file with your api key from news.org website
-*  Run the command chmod a+x start.py
+*  Run the command chmod a+x start.sh
 *  Run ./start.py in the command line
 
 ## Contact information
