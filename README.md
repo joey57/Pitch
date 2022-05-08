@@ -22,8 +22,8 @@ Pitch is a web application that allows users to login in and register to the web
 | :---------------- | :---------------: | ------------------: |
 | Load the page | **On page load** | Get all posts, Select between signup or login|
 | Select SignUp| **Email**,**Username**,**Password** | Go to login|
-| Select Login | **Username** and **password** |Go to page with app pitches based on categories and commenting section|
-| Select comment button | **Comment** | Form that you input your comment|
+| Select Login | **Username** and **password** |Go to page with post pitches based on categories, downvote, upvote and comment|
+| Select comment button | **Comment** | Form to input your comment|
 
 
 ## Known Bugs
